@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { StoreModule } from '@ngrx/store';
 
 
 import { AppComponent } from './app.component';
@@ -10,6 +11,8 @@ import { MessageSectionComponent } from './message-section/message-section.compo
 import { ThreadListComponent } from './thread-list/thread-list.component';
 import { MessageListComponent } from './message-list/message-list.component';
 import { ThreadsService } from './services/threads.service';
+import { reducer, metaReducers, reducers } from './store/reducers';
+import { INITIAL_APPLICATION_STATE } from './store/application-state';
 
 
 
@@ -24,9 +27,13 @@ import { ThreadsService } from './services/threads.service';
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    StoreModule.forRoot({app: reducer})
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+//https://coursehunters.net/course/udemy-angular-ngrx
