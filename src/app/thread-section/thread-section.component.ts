@@ -3,7 +3,11 @@ import { ThreadsService } from '../services/threads.service';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '../store/application-state';
 import { LoadUserThreadAction } from '../store/actions';
+import 'rxjs/add/operator/skip';
 import { isEmpty } from 'ramda';
+import { values } from 'lodash';
+import { Observable } from 'rxjs/Observable';
+import { Thread } from '../../../shared/model/thread';
 
 @Component({
   selector: 'thread-section',
@@ -12,19 +16,32 @@ import { isEmpty } from 'ramda';
 })
 export class ThreadSectionComponent implements OnInit {
 
-  userName: string;
+  userName$: Observable<string>;
+  unreadMessagesCounter$: Observable<number>;
 
   constructor(private threadsService: ThreadsService, private store: Store<any>) { 
-    store.subscribe(
-      state => {
-        var {app} = state;
-        if(!isEmpty(app.participants)){
-          this.userName = app.participants[app.userId].name;
-        }
-      }
-    );
+    this.userName$ = store
+    .skip(1)
+    .map(this.mapStateToUserName);
+
+    this.unreadMessagesCounter$ = store.skip(1).map(this.mapStateToUnreadMessagesCounter);
+  }
+
+  mapStateToUnreadMessagesCounter(state: any):number{
+    var {app} = state;
+    const currentUserId = app.userId;
+    return values<Thread>(app.threads)
+      .reduce(
+        (acc, thread) =>  acc + thread.participants[currentUserId]
+         ,0)
   }
   
+  mapStateToUserName(state: any):string{
+     var {app} = state;
+    // if(!isEmpty(app.participants)){
+      return app.participants[app.userId].name;
+    // }
+  }
 
   ngOnInit() {
     this.threadsService.loadUserThreads()
