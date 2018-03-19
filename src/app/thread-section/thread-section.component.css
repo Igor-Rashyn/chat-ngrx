@@ -1,0 +1,9 @@
+.thread-section {
+    float: left;
+    width: 265px;
+}
+
+.thread-count {
+    height: 40px;
+    margin: 10px 0;
+}
