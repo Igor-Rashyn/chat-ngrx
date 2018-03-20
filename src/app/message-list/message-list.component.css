@@ -1,0 +1,34 @@
+.message-list {
+  border: 1px solid rgba(26, 141, 246, 0.38);
+  border-radius: 4px;
+  font-size: 16px;
+  height: 325px;
+  margin: 0;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.message-list-item {
+  list-style: none;
+  padding: 12px 14px 14px;
+}
+
+.message-author-name {
+    color: #1976d2;
+    float: left;
+    font-size: 13px;
+    margin: 0;
+    font-weight: normal;
+}
+
+.message-time {
+  color: #1976d2;
+  float: right;
+  font-size: 12px;
+}
+
+.message-text {
+  clear: both;
+  font-size: 14px;
+  padding-top: 10px;
+}
