@@ -13,7 +13,7 @@ import { MessageSectionComponent } from './message-section/message-section.compo
 import { ThreadListComponent } from './thread-list/thread-list.component';
 import { MessageListComponent } from './message-list/message-list.component';
 import { ThreadsService } from './services/threads.service';
-import { reducer, metaReducers, reducers } from './store/reducers';
+import { metaReducers, reducers } from './store/rootReducer';
 import { INITIAL_APPLICATION_STATE } from './store/application-state';
 import { LoadThreadsEffect } from './store/effects/load-threads.effects';
 import { environment } from '../environments/environment';
