@@ -3,6 +3,12 @@
     cursor: pointer;
 }
 
+.thread-last-message {
+    clear: both;
+    font-size: 14px;
+    padding-top: 10px;
+}
+
 .thread-list {
     border: 1px solid rgba(26, 141, 246, 0.38);
     border-radius: 4px;
@@ -60,3 +66,9 @@
     font-weight: normal;
 }
 
+
+.thread-time {
+    color: #1976d2;
+    float: right;
+    font-size: 12px;
+}
