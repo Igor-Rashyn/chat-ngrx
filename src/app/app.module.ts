@@ -47,6 +47,3 @@ import './utils/utils';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-
-//https://coursehunters.net/course/udemy-angular-ngrx
