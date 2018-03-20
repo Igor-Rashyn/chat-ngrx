@@ -10,17 +10,13 @@ export function storeData(state: StoreData, action:Action) : StoreData {
 
             return handleLoadUserThreadsAction(state,<any>action);
 
-        // case THREAD_SELECTED_ACTION:
-
-        //     return handleThreadSelectedAction(state, <any>action);
-
         default:
             return state;
     }
 }
 
 function handleLoadUserThreadsAction(state:StoreData, action: UserThreadsLoadedAction): StoreData {
-    return {
+    return { ...state,
         participants: keyBy(action.payload.participants, 'id'),
         messages: keyBy(action.payload.messages, 'id'),
         threads: keyBy(action.payload.threads, 'id')
