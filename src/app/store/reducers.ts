@@ -16,7 +16,7 @@ export const initialState: ApplicationState = INITIAL_APPLICATION_STATE;
 
 export function reducer(state = initialState, action:app.Actions) : ApplicationState{
    switch(action.type){
-    case app.LOAD_USER_THREADS_ACTION:
+    case app.USER_THREADS_LOADED_ACTION:
        
         return handleLoadUserThreadsAction(state, action);
 
@@ -26,7 +26,7 @@ export function reducer(state = initialState, action:app.Actions) : ApplicationS
 }
     
 
-function handleLoadUserThreadsAction(state: ApplicationState, action: app.Actions): ApplicationState {
+function handleLoadUserThreadsAction(state: ApplicationState, action: app.UserThreadsLoadedAction): ApplicationState {
     const userData = action.payload;
 
     const newState: ApplicationState = Object.assign({}, state);
