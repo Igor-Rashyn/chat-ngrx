@@ -7,7 +7,7 @@ import { ThreadSummaryVM } from './thread-summary.vm';
 import { userNameSelector } from './selectors/userNameSelector';
 import { unreadMessagesCounterSelector } from './selectors/unreadMessagesCounterSelector';
 import { treadSummariesSelector } from './selectors/treadSummariesSelector';
-import { LoadUserThreadsAction } from '../store/actions';
+import { LoadUserThreadsAction, ThreadSelectedAction } from '../store/actions';
 
 @Component({
   selector: 'thread-section',
@@ -28,6 +28,10 @@ export class ThreadSectionComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadUserThreadsAction())
+  }
+
+  onThreadSelected(selectedThreadId:number){
+    this.store.dispatch(new ThreadSelectedAction(selectedThreadId))
   }
 
 }

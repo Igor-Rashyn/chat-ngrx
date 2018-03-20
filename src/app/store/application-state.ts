@@ -1,19 +1,18 @@
-import { Participant } from "../../../shared/model/participant";
-import { Thread } from "../../../shared/model/thread";
-import { Message } from "../../../shared/model/message";
+import {UiState, INITIAL_UI_STATE} from "./ui-state";
+import {StoreData, INITIAL_STORE_DATA} from "./store-data";
+// import {RouterStateUrl} from "./utils";
+import * as fromRouter from '@ngrx/router-store';
+
 
 export interface ApplicationState {
-    participants: {[key:number]:Participant},
-    threads: {[key:number]:Thread},
-    messages: {[key:number]: Message},
-    userId:number;
-    currentThreadId: number
+    uiState: UiState,
+    storeData: StoreData,
+    // routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
+
 export const INITIAL_APPLICATION_STATE: ApplicationState = {
-    participants: {},
-    threads: {},
-    messages: {},
-    userId: 1,
-    currentThreadId: undefined
+    uiState: INITIAL_UI_STATE,
+    storeData: INITIAL_STORE_DATA,
+    // routerReducer: undefined
 };

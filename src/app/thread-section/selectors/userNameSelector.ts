@@ -1,7 +1,8 @@
-export function userNameSelector(state: any):string{
-  const {app} = state,
-    userId = app.userId,
-    currentParticipant = app.participants[userId];
+import { ApplicationState } from "../../store/application-state";
+
+export function userNameSelector(state: ApplicationState):string{
+  const userId = state.uiState.userId,
+    currentParticipant = state.storeData.participants[userId];
 
   if(!currentParticipant){
     return "";

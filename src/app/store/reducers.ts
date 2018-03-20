@@ -1,46 +1,28 @@
 import { ApplicationState, INITIAL_APPLICATION_STATE } from "./application-state";
 import { Action, ActionReducerMap, ActionReducer, MetaReducer } from "@ngrx/store";
 import * as app from "./actions";
-import { keyBy } from 'lodash';
 import { environment } from "../../environments/environment";
 import * as fromRouter from '@ngrx/router-store';
+import { uiState } from "./reducers/uiStateReducer";
+import { storeData } from "./reducers/uiStoreDataReducer";
 
-/**
- * storeFreeze prevents state from being mutated. When mutation occurs, an
- * exception will be thrown. This is useful during development mode to
- * ensure that none of the reducers accidentally mutates the state.
- */
-// import { storeFreeze } from 'ngrx-store-freeze';
 
 export const initialState: ApplicationState = INITIAL_APPLICATION_STATE;
 
 export function reducer(state = initialState, action:app.Actions) : ApplicationState{
-   switch(action.type){
-    case app.USER_THREADS_LOADED_ACTION:
-       
-        return handleLoadUserThreadsAction(state, action);
 
-    default:
-        return state;
+    return {
+        uiState: uiState(state.uiState, action),
+        storeData: storeData(state.storeData, action),
     }
+
 }
-    
 
-function handleLoadUserThreadsAction(state: ApplicationState, action: app.UserThreadsLoadedAction): ApplicationState {
-    const userData = action.payload;
-
-    const newState: ApplicationState = Object.assign({}, state);
-
-    newState.participants = keyBy(action.payload.participants, 'id');
-    newState.messages = keyBy(action.payload.messages, 'id');
-    newState.threads = keyBy(action.payload.threads, 'id')
-
-    return newState;
-}
 
 
 export const reducers: ActionReducerMap<any> = {
-    reducer
+    uiState: uiState,
+    storeData: storeData,
 };
 
 

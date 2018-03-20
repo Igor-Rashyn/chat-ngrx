@@ -19,6 +19,9 @@ import { LoadThreadsEffect } from './store/effects/load-threads.effects';
 import { environment } from '../environments/environment';
 
 
+import './utils/utils';
+
+
 
 
 @NgModule({
@@ -33,7 +36,7 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     HttpModule,
-    StoreModule.forRoot({app: reducer}),
+    StoreModule.forRoot(reducers, {metaReducers, initialState: INITIAL_APPLICATION_STATE}),
     EffectsModule.forRoot([LoadThreadsEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
