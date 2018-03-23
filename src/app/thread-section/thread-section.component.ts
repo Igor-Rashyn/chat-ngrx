@@ -8,6 +8,7 @@ import { userNameSelector } from './selectors/userNameSelector';
 import { unreadMessagesCounterSelector } from './selectors/unreadMessagesCounterSelector';
 import { treadSummariesSelector } from './selectors/treadSummariesSelector';
 import { LoadUserThreadsAction, ThreadSelectedAction } from '../store/actions';
+import { currentThreadIdSelector } from './selectors/currentThreadIdSelector';
 
 @Component({
   selector: 'thread-section',
@@ -19,11 +20,13 @@ export class ThreadSectionComponent implements OnInit {
   userName$: Observable<string>;
   unreadMessagesCounter$: Observable<number>;
   threadSummaries$: Observable<ThreadSummaryVM[]>;
+  currentSelectedThreadId$:Observable<number>;
 
   constructor(private store: Store<any>) { 
     this.userName$ = store.select(userNameSelector);
     this.unreadMessagesCounter$ = store.select(unreadMessagesCounterSelector);
     this.threadSummaries$ = store.select(treadSummariesSelector)
+    this.currentSelectedThreadId$ = store.select(currentThreadIdSelector);
   }
 
   ngOnInit() {
