@@ -5,24 +5,32 @@ import { Observable } from 'rxjs/Observable';
 import { MessageVM } from './message.vm';
 import { messageParticipantNamesSelector } from './selectors/messageParticipantNamesSelector';
 import { messagesSelector } from './selectors/messagesSelector';
+import { SendNewMessage } from '../store/actions';
+import { UiState } from '../store/ui-state';
 
 @Component({
   selector: 'message-section',
   templateUrl: './message-section.component.html',
   styleUrls: ['./message-section.component.css']
 })
-export class MessageSectionComponent implements OnInit {
+export class MessageSectionComponent {
 
   participantNames$: Observable<string>;
   messages$: Observable<MessageVM[]>;
+  uiState: UiState;
 
   constructor(private store: Store<ApplicationState>) {
     this.participantNames$ = store.select(messageParticipantNamesSelector);
 
     this.messages$ = store.select(messagesSelector);
+
+    store.subscribe(state => this.uiState = {...state.uiState});
    }
 
-  ngOnInit() {
+
+  onNewMessage(input: any ){
+    this.store.dispatch(new SendNewMessage({text: input.value, threadId: this.uiState.currentThreadId, participantId: this.uiState.userId}));
+    input.value = "";
   }
 
 }

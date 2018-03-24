@@ -17,7 +17,7 @@ export class LoadThreadsEffect {
 
    @Effect() userThreads$: Observable<Action> = this.actions$
    .ofType(LOAD_USER_THREADS_ACTION)
-   .switchMap(() => this.threadsService.loadUserThreads())
+   .switchMap(action => this.threadsService.loadUserThreads(action.payload))
    .debug('data received')
    .map(allUserData => new UserThreadsLoadedAction(allUserData));
 
@@ -25,6 +25,6 @@ export class LoadThreadsEffect {
    @Effect() userSelected$: Observable<Action> = this.actions$
    .ofType(SELECT_USER_ACTION)
    .debug('new user selected')
-   .map(() => new LoadUserThreadsAction());
+   .map(action => new LoadUserThreadsAction(action.payload));
 
 }

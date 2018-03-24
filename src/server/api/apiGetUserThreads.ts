@@ -9,7 +9,7 @@ export function apiGetUserThreads(app:Application) {
 
     app.route('/api/threads').get((req: Request, res: Response) => {
 
-        const participantId = req.headers['USERID'];
+        const participantId = parseInt(req.headers['USERID']);
 
         const threadsPerUser = findDbThreadsPerUser(participantId);
 
