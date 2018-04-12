@@ -1,6 +1,6 @@
 import { StoreData } from "../store-data";
 import { Action } from "@ngrx/store";
-import { USER_THREADS_LOADED_ACTION, THREAD_SELECTED_ACTION, UserThreadsLoadedAction, SEND_NEW_MESSAGE_ACTION } from "../actions";
+import { USER_THREADS_LOADED_ACTION, THREAD_SELECTED_ACTION, UserThreadsLoadedAction, SEND_NEW_MESSAGE_ACTION, SendNewMessageAction } from "../actions";
 import { keyBy, cloneDeep } from 'lodash';
 import { Message } from "../../../../shared/model/message";
 
@@ -11,26 +11,10 @@ export function storeData(state: StoreData, action:Action) : StoreData {
 
         case USER_THREADS_LOADED_ACTION:
 
-            return handleLoadUserThreadsAction(state,<any>action);
+            return handleLoadUserThreadsAction(state, <any>action);
 
         case SEND_NEW_MESSAGE_ACTION:
-            const newStoreState = cloneDeep(state);
-
-            const currentThread = newStoreState.threads[action.payload.threadId];
-            const newMessage: Message ={
-                text: action.payload.text,
-                threadId: action.payload.threadId,
-                timestamp: new Date().getTime(),
-                participantId: action.payload.participantId,
-                id:uuid()
-            }
-            
-            currentThread.messageIds.push(newMessage.id);
-            newStoreState.messages[newMessage.id] = newMessage;
-
-
-            return newStoreState;
-
+            return handleSendNewMessageAction(state, <any>action);
         default:
             return state;
     }
@@ -42,4 +26,33 @@ function handleLoadUserThreadsAction(state:StoreData, action: UserThreadsLoadedA
         messages: keyBy(action.payload.messages, 'id'),
         threads: keyBy(action.payload.threads, 'id')
     };
+}
+
+
+function handleSendNewMessageAction(state:StoreData, action: SendNewMessageAction) {
+
+    const newStoreState: StoreData = {
+        participants: state.participants,
+        threads: Object.assign({}, state.threads),
+        messages: Object.assign({}, state.messages)
+    };
+
+    newStoreState.threads[action.payload.threadId] = Object.assign({}, state.threads[action.payload.threadId]);
+
+    const currentThread = newStoreState.threads[action.payload.threadId];
+
+    const newMessage: Message = {
+        text: action.payload.text,
+        threadId: action.payload.threadId,
+        timestamp: new Date().getTime(),
+        participantId: action.payload.participantId,
+        id:uuid()
+    };
+
+    currentThread.messageIds = currentThread.messageIds.slice(0);
+    currentThread.messageIds.push(newMessage.id);
+
+    newStoreState.messages[newMessage.id] = newMessage;
+
+    return newStoreState;
 }

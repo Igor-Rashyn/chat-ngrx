@@ -35,16 +35,17 @@ export class SelectUserAction implements Action {
     }
 }
 
-export interface SendNewMessagePayload {
-    text: string;
+export interface SendNewMessageActionPayload {
+    text:string;
     threadId: number;
-    participantId:number
+    participantId: number;
 }
 
-export class SendNewMessage implements Action{
+export class SendNewMessageAction implements Action {
     readonly type = SEND_NEW_MESSAGE_ACTION;
 
-    constructor(public payload?: SendNewMessagePayload){
+    constructor(public payload?: SendNewMessageActionPayload) {
+
     }
 }
 
@@ -54,4 +55,4 @@ export type Actions
     | LoadUserThreadsAction
     | ThreadSelectedAction
     | SelectUserAction
-    | SendNewMessage;
+    | SendNewMessageAction;

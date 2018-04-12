@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ThreadsService } from '../../services/threads.service';
-import { Actions, Effect } from '@ngrx/effects';
-import { LOAD_USER_THREADS_ACTION, UserThreadsLoadedAction, SELECT_USER_ACTION, LoadUserThreadsAction } from '../actions';
+import {ThreadsService} from "../../services/threads.service";
+import {Actions, Effect} from "@ngrx/effects";
+import {
+    LOAD_USER_THREADS_ACTION, UserThreadsLoadedAction, SELECT_USER_ACTION, LoadUserThreadsAction,
+    SelectUserAction
+} from "../actions";
+import {Observable} from "rxjs/Observable";
+import {Action} from "@ngrx/store";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
-import { Observable } from 'rxjs/Observable';
-import { Action } from '@ngrx/store';
+
 
 @Injectable()
 export class LoadThreadsEffect {
