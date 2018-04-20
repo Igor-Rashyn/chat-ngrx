@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { MessageVM } from './message.vm';
 import { messageParticipantNamesSelector } from './selectors/messageParticipantNamesSelector';
 import { messagesSelector } from './selectors/messagesSelector';
-import { SendNewMessage } from '../store/actions';
+import { SendNewMessageAction } from '../store/actions';
 import { UiState } from '../store/ui-state';
 
 @Component({
@@ -29,7 +29,7 @@ export class MessageSectionComponent {
 
 
   onNewMessage(input: any ){
-    this.store.dispatch(new SendNewMessage({text: input.value, threadId: this.uiState.currentThreadId, participantId: this.uiState.userId}));
+    this.store.dispatch(new SendNewMessageAction({text: input.value, threadId: this.uiState.currentThreadId, participantId: this.uiState.userId}));
     input.value = "";
   }
 

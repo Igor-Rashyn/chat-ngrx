@@ -20,6 +20,8 @@ import { environment } from '../environments/environment';
 
 
 import './utils/utils';
+import { WriteNewMessageEffects } from './store/effects/write-new-message.effects';
+import { ServerNotificationsEffects } from './store/effects/server-notifications.effects';
 
 
 
@@ -37,7 +39,7 @@ import './utils/utils';
     BrowserModule,
     HttpModule,
     StoreModule.forRoot(reducers, {metaReducers, initialState: INITIAL_APPLICATION_STATE}),
-    EffectsModule.forRoot([LoadThreadsEffect]),
+    EffectsModule.forRoot([LoadThreadsEffect, WriteNewMessageEffects, ServerNotificationsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode

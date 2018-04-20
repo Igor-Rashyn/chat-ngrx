@@ -11,9 +11,6 @@ export function apiGetUserThreads(app:Application) {
 
         const participantId = parseInt(req.headers['userid']);
 
-        console.log('req',req.headers);
-        console.log('participantId',participantId);
-
         const threadsPerUser = findDbThreadsPerUser(participantId);
 
         let messages: Message[] = [],
@@ -37,11 +34,6 @@ export function apiGetUserThreads(app:Application) {
             threads: threadsPerUser
         };
 
-        console.log(participantId);
-
         res.status(200).json(response);
-
     });
-
-
 }
